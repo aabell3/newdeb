@@ -104,10 +104,10 @@ echo
 39% COMPLETE "
 
 #install menu
-wget https://raw.githubusercontent.com/zero9911/script/master/script/menu
-wget https://raw.githubusercontent.com/zero9911/script/master/script/user-list
-wget https://raw.githubusercontent.com/zero9911/script/master/script/monssh
-wget https://raw.githubusercontent.com/zero9911/script/master/script/status
+wget https://raw.githubusercontent.com/aabell3/deb7/master/script/none/3/menu
+wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/user-list
+wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/monssh
+wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/status
 mv menu /usr/local/bin/
 mv user-list /usr/local/bin/
 mv monssh /usr/local/bin/
@@ -121,7 +121,7 @@ cd
 #ssh
 sed -i 's/#Banner/Banner/g' /etc/ssh/sshd_config
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
-wget -O /etc/issue.net " https://raw.githubusercontent.com/zero9911/script/master/script/banner"
+wget -O /etc/issue.net "https://raw.githubusercontent.com/aabell3/newdeb/master/script/banner"
 
 clear
 echo 
@@ -182,17 +182,17 @@ clear
 
 echo "===============================================--"
 echo "                             "
-echo "  === AUTOSCRIPT FROM MKSSHVPN === "
+echo "  === AUTOSCRIPT FROM VPSMURAH.ME === "
 echo "WEBMIN : http://$myip:10000 "
 echo "OPENVPN PORT : 59999"
 echo "DROPBEAR PORT : 22,443"
 echo "PROXY PORT : 7166,8080"
 echo "Config OPENVPN : http://$myip/max.ovpn"
-echo "SERVER TIME/LOCATION : KUALA LUMPUR +8"
+echo "SERVER TIME/LOCATION : jakarta +7"
 echo "TORRENT PORT HAS BLOCK BY SCRIPT"
 echo "CONTACT OWNER SCRIPT"
-echo "WHATSAPP : +60162771064"
-echo "TELEGRAM : @mk_let"
+echo "WHATSAPP : 085288355698"
+echo "fb : fb.com/osip.yaroslav"
 echo "For SWAP RAM PLEASE CONTACT OWNER"
 echo "  === PLEASE REBOOT TAKE EFFECT  ===  "
 echo "                                  "
