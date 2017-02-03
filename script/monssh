@@ -1,7 +1,7 @@
 #!/bin/bash
 #MKSSHVPN AUTOSCRIPT MENU
 
-echo -e "\e[1;33;44m[ MKSSHVPN AUTOSCRIPT ]\e[0m"
+echo -e "\e[1;33;44m[ VPSMURAH.ME - CEK USER LOGIN ]\e[0m"
 echo "-------------------------------------------------------------"
 echo " Date-Time    |    PID   |    User Name    |     Dari IP "
 echo "-------------------------------------------------------------"
@@ -45,4 +45,4 @@ done
 
 echo "-------------------------------------------------------------"
 echo -e "      User Monitor Dropbear & OpenSSH"
-echo -e "\e[1;33;44m[ MKSSHVPN AUTOSCRIPT ]\e[0m"
+echo -e "\e[1;33;44m[ VPSMURAH.ME ]\e[0m"
