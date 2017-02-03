@@ -26,4 +26,4 @@ done < /etc/passwd
 echo "---------------------------------------------"
 echo "   ONLINE : $ON       OFFLINE : $OFF     "
 echo "---------------------------------------------"
-echo -e "\e[1;33;44m[ MKSSHVPN AUTOSCRIPT ]\e[0m"
+echo -e "\e[1;33;44m[ VPSMURAH.ME ]\e[0m"
