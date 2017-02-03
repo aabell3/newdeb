@@ -24,6 +24,10 @@ function delete_user(){
 	userdel $uname
 }
 
+function speed_test(){
+	speedtest_cli.py
+}
+
 function expired_users(){
 	cat /etc/shadow | cut -d: -f1,8 | sed /:$/d > /tmp/expirelist.txt
 	totalaccounts=`cat /tmp/expirelist.txt | wc -l`
@@ -72,7 +76,7 @@ Whatsapp : 0162771064
 
 ";
 PS3='Please enter your choice: '
-options=("Add User" "Renew User" "Delete User" "Current Users Dropbear" "User List" "Ram Status" "Users Not Expired" "Expired Users" "Used Data By Users" "Users Status Openvpn" "Quit")
+options=("Add User" "Renew User" "Delete User" "Current Users Dropbear" "User List" "Ram Status" "Users Not Expired" "Expired Users" "Used Data By Users" "Users Status Openvpn" "speedtest" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -120,6 +124,10 @@ do
 			;;
 	        "Users Status Openvpn")
 			status
+			break
+			;;
+		"speedtest")
+			speed_test
 			break
 			;;
         "Quit")
