@@ -1,5 +1,4 @@
 #!/bin/bash
-#MKSSHVPN AUTOSCRIPT MENU
 
 function create_user() {
 	useradd -M $uname
@@ -8,7 +7,7 @@ function create_user() {
 
 	myip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | head -n1`;
 	myip2="s/xxxxxxxxx/$myip/g";	
-	wget -qO /tmp/client.ovpn "http://128.199.80.182/script/1194-client.conf"
+	wget -qO /tmp/client.ovpn "https://raw.githubusercontent.com/aabell3/ngaco/master/null/1194-client.conf"
 	sed -i 's/remote xxxxxxxxx 1194/remote xxxxxxxxx 443/g' /tmp/client.ovpn
 	sed -i $myip2 /tmp/client.ovpn
 	echo ""
@@ -25,7 +24,7 @@ function delete_user(){
 }
 
 function speed_test(){
-	speedtest_cli.py
+	./speedtest_cli.py
 }
 
 function expired_users(){
@@ -67,16 +66,14 @@ function used_data(){
 }
 
 clear
-echo "MKSSHVPN AUTOSCRIPT MENU 2017
-
+echo "Menu Panel Untuk Admin -vpsmurah.me
 For support:-
-MKSSHVPN
-Telegram : @mk_let
-Whatsapp : 0162771064
-
+vpsmurah.me 
+Facebook : fb.com/osip.yaroslav
+Whatsapp : +6285288355698
 ";
 PS3='Please enter your choice: '
-options=("Add User" "Renew User" "Delete User" "Current Users Dropbear" "User List" "Ram Status" "Users Not Expired" "Expired Users" "Used Data By Users" "Users Status Openvpn" "speedtest" "Quit")
+options=("Add User" "Renew User" "Delete User" "Current Connected Users Dropbear" "User List" "Ram Status" "Users Not Expired" "Expired Users" "Used Data By Users" "Current Connected Users Openvpn" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -98,7 +95,7 @@ do
             delete_user
             break
             ;;
-		"Current Users Dropbear")
+		"Current Connected Users Dropbear")
             monssh
             break
             ;;		
@@ -107,7 +104,8 @@ do
             break
             ;;	
 		"Ram Status")
-		    free -m 
+		    free -h | grep -v + > /tmp/ramcache
+            cat /tmp/ramcache | grep -v "Swap"
             break
             ;;	
 		"Users Not Expired")
@@ -122,12 +120,8 @@ do
 			used_data
 			break
 			;;
-	        "Users Status Openvpn")
+	        "Current Connected Users Openvpn")
 			status
-			break
-			;;
-		"speedtest")
-			speed_test
 			break
 			;;
         "Quit")
