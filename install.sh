@@ -1,8 +1,26 @@
 #!/bin/bash
-
 myip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | head -n1`;
 myint=`ifconfig | grep -B1 "inet addr:$myip" | head -n1 | awk '{print $1}'`;
-
+curl -s -o ip.txt https://raw.githubusercontent.com/aabell3/deb7/master/script/none/4/ip.txt
+find=`grep $myip ip.txt`
+if [ "$find" = "" ]
+then
+clear
+echo "
+      Script Auto Install By Vpsmurah.me
+[ IP anda belum Memiliki Akses Untuk Menggunakan script ini ]
+         Rp. 10.000 / ip untuk jasa install vps
+----==== Hubungi Kontak Dibawah ====----
+[ SMS/fb : 085288355698 / osip.yaroslav ]
+"
+rm *.txt
+rm *.sh
+exit
+fi
+if [ $USER != 'root' ]; then
+	echo "Sorry, for run the script please using root user"
+	exit
+fi
 #info
 echo "=================================================="
 echo "SUPPORT SERVER GOOGLE CLOUD/DIGITAL OCEAN/LINODE/etc"
@@ -145,8 +163,8 @@ chmod +x  torrent.sh
 ./torrent.sh
 
 #add user
-useradd -m -g users -s /bin/bash mklet
-echo "mklet:mklet" | chpasswd
+useradd -m -g users -s /bin/bash vpsmurah
+echo "vpsmurah:vpsmurah" | chpasswd
 
 clear
 echo "COMPLETE 100%"
