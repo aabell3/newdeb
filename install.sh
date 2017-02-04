@@ -109,7 +109,7 @@ echo
 39% COMPLETE "
 
 #install menu
-wget https://raw.githubusercontent.com/aabell3/deb7/master/script/none/3/menu
+wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/menu
 wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/user-list
 wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/monssh
 wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/status
