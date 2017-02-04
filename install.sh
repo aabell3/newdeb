@@ -28,9 +28,9 @@ echo "DEBIAN 7.X 64/32 BIT ONLY"
 echo "=================================================="
 
 clear 
-#set time zone malaysia
-echo "SET TIMEZONE KUALA LUMPUT GMT +8"
-ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime;
+#set time zone Jakarta
+echo "SET TIMEZONE Jakarta GMT +7"
+ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime;
 clear
 echo "
 CHECK AND INSTALL IT
@@ -46,6 +46,11 @@ COMPLETE 15%
 #install sudo
 apt-get -y install sudo
 apt-get -y wget
+
+# disable ipv6
+echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6
+sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
+
  
 #needed by openvpn-nl
 apt-get -y install apt-transport-https
@@ -108,20 +113,58 @@ wget https://raw.githubusercontent.com/aabell3/deb7/master/script/none/3/menu
 wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/user-list
 wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/monssh
 wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/status
+wget https://raw.githubusercontent.com/aabell3/ngaco/master/null/speedtest_cli.py
+wget https://raw.githubusercontent.com/aabell3/ngaco/master/freak/user-expired.sh
+echo "0 0 * * * root /usr/bin/reboot" > /etc/cron.d/reboot
+echo "0 0 * * * root /root/user-expired.sh" > /etc/cron.d/user-expired.sh
 mv menu /usr/local/bin/
 mv user-list /usr/local/bin/
 mv monssh /usr/local/bin/
 mv status /usr/local/bin/
+mv speedtest_cli.py /usr/local/bin/
+chmod +x user-expired.sh
 chmod +x  /usr/local/bin/menu
 chmod +x  /usr/local/bin/user-list
 chmod +x  /usr/local/bin/monssh
 chmod +x  /usr/local/bin/status
+chmod +x  /usr/local/bin/speedtest_cli.py
 cd
 
 #ssh
 sed -i 's/#Banner/Banner/g' /etc/ssh/sshd_config
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 wget -O /etc/issue.net "https://raw.githubusercontent.com/aabell3/newdeb/master/script/banner"
+
+# install screenfetch
+cd
+wget 'https://raw.githubusercontent.com/aabell3/ngaco/master/null/screenfetch-dev'
+mv screenfetch-dev /usr/bin/screenfetch-dev
+chmod +x /usr/bin/screenfetch-dev
+echo "clear" >> .profile
+echo "screenfetch-dev" >> .profile
+
+# install webserver
+apt-get -y install nginx php5-fpm php5-cli
+
+# disable exim
+service exim4 stop
+sysv-rc-conf exim4 off
+
+# install webserver
+cd
+rm /etc/nginx/sites-enabled/default
+rm /etc/nginx/sites-available/default
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/aabell3/ngaco/master/null/nginx.conf"
+mkdir -p /home/vps/public_html
+echo "<pre>www.vpsmurah.me</pre>" > /home/vps/public_html/index.html
+echo "<?php phpinfo(); ?>" > /home/vps/public_html/info.php
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/aabell3/ngaco/master/null/vps.conf"
+sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
+service php5-fpm restart
+service nginx restart
+
+# install fail2ban
+apt-get -y install fail2ban;service fail2ban restart
 
 clear
 echo 
@@ -173,8 +216,11 @@ echo "RESTART SERVICE"
 service openvpn-nl restart
 service squid3 restart
 service vnstat restart
+service nginx start
+service php-fpm start
 service webmin restart
 service dropbear restart
+service fail2ban restart
 service ssh restart
 echo " DONE RESTART SERVICE"
 
