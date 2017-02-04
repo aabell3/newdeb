@@ -115,14 +115,21 @@ wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/monssh
 wget https://raw.githubusercontent.com/aabell3/newdeb/master/script/status
 wget https://raw.githubusercontent.com/aabell3/ngaco/master/null/speedtest_cli.py
 wget https://raw.githubusercontent.com/aabell3/ngaco/master/freak/user-expired.sh
+wget https://raw.github.com/yurisshOS/debian7os/master/autokill.sh
+wget https://raw.githubusercontent.com/yurisshOS/debian7os/master/userlimit.sh
 echo "0 0 * * * root /usr/bin/reboot" > /etc/cron.d/reboot
 echo "0 0 * * * root /root/user-expired.sh" > /etc/cron.d/user-expired.sh
+echo "@reboot root /root/userlimit.sh" > /etc/cron.d/userlimit
+echo "@reboot root /root/autokill.sh" > /etc/cron.d/autokill
+sed -i '$ i\screen -AmdS check /root/autokill.sh' /etc/rc.local
 mv menu /usr/local/bin/
 mv user-list /usr/local/bin/
 mv monssh /usr/local/bin/
 mv status /usr/local/bin/
 mv speedtest_cli.py /usr/local/bin/
 chmod +x user-expired.sh
+chmod +x userlimit.sh
+chmod +x autokill.sh
 chmod +x  /usr/local/bin/menu
 chmod +x  /usr/local/bin/user-list
 chmod +x  /usr/local/bin/monssh
