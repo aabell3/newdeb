@@ -24,7 +24,7 @@ function delete_user(){
 }
 
 function speed_test(){
-	./speedtest_cli.py
+	speedtest_cli.py
 }
 
 function expired_users(){
@@ -73,7 +73,7 @@ Facebook : fb.com/osip.yaroslav
 Whatsapp : +6285288355698
 ";
 PS3='Please enter your choice: '
-options=("Add User" "Renew User" "Delete User" "Current Connected Users Dropbear" "User List" "Ram Status" "Users Not Expired" "Expired Users" "Used Data By Users" "Current Connected Users Openvpn" "Quit")
+options=("Add User" "Renew User" "Delete User" "User Active" "User List" "Ram Status" "Not expired Users" "Expired Users" "Bandwitch usages" "Ovpn User" "Speedtest" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -95,7 +95,7 @@ do
             delete_user
             break
             ;;
-		"Current Connected Users Dropbear")
+		"User Active")
             monssh
             break
             ;;		
@@ -108,7 +108,7 @@ do
             cat /tmp/ramcache | grep -v "Swap"
             break
             ;;	
-		"Users Not Expired")
+		"Not expired Users")
 			not_expired_users
 			break
 			;;
@@ -116,12 +116,16 @@ do
 			expired_users
 			break
 			;;
-		"Used Data By Users")
+		"Bandwitch usages")
 			used_data
 			break
 			;;
-	        "Current Connected Users Openvpn")
+	        "Ovpn User")
 			status
+			break
+			;;
+		"Speedtest")
+			speed_test
 			break
 			;;
         "Quit")
