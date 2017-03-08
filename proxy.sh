@@ -19,30 +19,13 @@ echo
 
 #installing squid3
 apt-get -y install squid3
-rm -f /etc/squid3/squid.conf
-
-#restoring squid config with open port proxy 8080,7166
-wget -P /etc/squid3/ "https://raw.githubusercontent.com/zero9911/script/master/script/squid.conf"
-sed -i "s/ipserver/$IP/g" /etc/squid3/squid.conf
+wget -O /etc/squid3/squid.conf "https://raw.github.com/drcyber96/autoscriptwebmin/master/conf/squid3.conf"
+sed -i $MYIP2 /etc/squid3/squid.conf;
 service squid3 restart
 cd
 
-echo 
-" 58% COMPLETE "
-
-echo " ADD BANER MKSSHVPN"
-#ssh
-sed -i 's/#Banner/Banner/g' /etc/ssh/sshd_config
-sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
-wget -O /etc/issue.net " https://raw.githubusercontent.com/zero9911/script/master/script/banner"
-service ssh restart
-
+echo " 58% COMPLETE "
 echo " 91% COMPLETE "
-
-#add user
-useradd -m -g users -s /bin/bash mklet
-echo "mklet:mklet" | chpasswd
-
 echo "100% COMPLETE"
 echo " BYE-BYE"
 
