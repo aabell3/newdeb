@@ -69,6 +69,11 @@ apt-get -y install aptitude curl
 if [ "$IP" = "" ]; then
         IP=$(curl -s ifconfig.me)
 fi
+# install squid3
+apt-get -y install squid3
+wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/ForNesiaFreak/FNS_Debian7/fornesia.com/null/squid3.conf"
+sed -i $MYIP2 /etc/squid3/squid.conf;
+service squid3 restart
 cd
 
 clear
@@ -183,6 +188,7 @@ echo "RESTART SERVICE"
 service nginx start
 service php-fpm start
 service webmin restart
+service squid3 restart
 service dropbear restart
 service fail2ban restart
 service ssh restart
