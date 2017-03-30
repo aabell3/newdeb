@@ -1,32 +1,53 @@
-#!/bin/sh
+#!/bin/bash
+myip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | head -n1`;
+myint=`ifconfig | grep -B1 "inet addr:$myip" | head -n1 | awk '{print $1}'`;
 
-# initialisasi var
-export DEBIAN_FRONTEND=noninteractive
-OS=`uname -m`;
-MYIP=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0'`;
-MYIP2="s/xxxxxxxxx/$MYIP/g";
+flag=0
 
-# go to root
-cd
+echo
 
-apt-get -y install squid3
-wget -O /etc/squid3/squid.conf "https://raw.github.com/yurisshOS/debian7os/master/squid3.conf"
-sed -i $MYIP2 /etc/squid3/squid.conf;
-service squid3 restart
-echo " BYE-BYE"
 
+if [ $USER != 'root' ]; then
+	echo "Sorry, for run the script please using root user"
+	exit
+fi
+echo "
+AUTOSCRIPT BY YUSUF ARDIANSYAH
+PLEASE CANCEL ALL PACKAGE POPUP
+TAKE NOTE !!!"
 clear
-
-echo "================================================="
-echo "                                                "
-echo "  === MKSSHVPN AUTOSCRIPT ===  "
-echo "PROXY PORT : 7166,8080"
-echo "edit "nano /etc/squid3/squid.conf" if want to allow other IP "
-echo "CONTACT OWNER SCRIPT"
-echo "WHATSAPP : +60162771064"
-echo "TELEGRAM : @mk_let"
-echo "For SWAP RAM PLEASE CONTACT OWNER"
-echo "  === PLEASE REBOOT TAKE EFFECT  ===  "
-echo "                                  "
-echo "=================================================="
-rm proxy.sh
+echo "START AUTOSCRIPT"
+clear
+echo "SET TIMEZONE JAKARTA GMT +7"
+ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime;
+clear
+echo "
+ENABLE IPV4 AND IPV6
+COMPLETE 1%
+"
+echo ipv4 >> /etc/modules
+echo ipv6 >> /etc/modules
+sysctl -w net.ipv4.ip_forward=1
+sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
+sed -i 's/#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/g' /etc/sysctl.conf
+sysctl -p
+clear
+echo "
+REMOVE SPAM PACKAGE
+COMPLETE 10%
+"
+apt-get -y --purge remove samba*;
+apt-get -y --purge remove apache2*;
+apt-get -y --purge remove sendmail*;
+apt-get -y --purge remove postfix*;
+apt-get -y --purge remove bind*;
+clear
+cd
+# squid3
+apt-get update
+apt-get -y install squid3
+wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/deeniedoank/autoscript2/master/squid/squid.conf"
+sed -i "s/ipserver/$myip/g" /etc/squid3/squid.conf
+chmod 0640 /etc/squid3/squid.conf
+cd
+service squid3 restart
