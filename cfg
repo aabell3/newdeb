@@ -1,0 +1,1 @@
+CONNECT [host_port][crlf][split]GET http://123.xl.co.id/min_balance8/;mmc.xl.net.id;mmc.xl.../ HTTP/1.1[crlf]Host: ://123.xl.co.id/min_balance8/;mmc.xl.net.id;mmc.xl.net.id...: ://123.xl.co.id/min_balance7;mmc.xl.net.id;mmc.xl.net.id...: Keep-Alive[crlf][crlf]
